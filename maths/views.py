@@ -20,12 +20,12 @@ def index(request):
             context = {'input': inputData,
                        'output': outputData,
                        'buttons': [True, False, True]}
-            return render(request, 'maths.html', context)
+            return render(request, 'index.html', context)
         else:
             context = {'form': form,
                        'error': "Wybierz chociaż jedno działanie.",
                        'buttons': [True, True, False]}
-            return render(request, 'maths.html', context)
+            return render(request, 'index.html', context)
     if 'finish' in request.POST:
         answers = request.POST.getlist('answer')
         doStuff.check(outputData, answers)
@@ -38,11 +38,11 @@ def index(request):
                    'output': outputData,
                    'score': score,
                    'buttons': [showFinishButton, False, True]}
-        return render(request, 'maths.html', context)
+        return render(request, 'index.html', context)
     if 'reset' in request.POST:
         outputData.clear()
         context = {'form': MathsForm(),
                    'buttons': [True, True, False]}
-        return render(request, 'maths.html', context)
+        return render(request, 'index.html', context)
     context = {'form': form}
-    return render(request, 'maths.html', context)
+    return render(request, 'index.html', context)
