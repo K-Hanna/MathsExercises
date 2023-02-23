@@ -1,0 +1,66 @@
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Umiem liczyć</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+</head>
+<body>
+    <main style="max-width: 1100px;
+    min-height: 100vh;
+	margin: 0 auto;
+	box-shadow: 0 0 50px;">
+        <section style="padding: 20px">
+            <form action = "" method = "post">
+                {% csrf_token %}
+                {% load bootstrap_icons %}
+                <article>
+                    <label class="form-label">1. Ile chcesz poćwiczyć?</label>
+                    {{form.amount}}{{input.amount}}
+                    <br>
+                    <label class="form-label">2. Jaki ma być zakres liczb?</label>
+                    Od: {{form.minValue}}{{input.minValue}} do: {{form.maxValue}}{{input.maxValue}}<br>
+                    <label class="form-label">3. Co chcesz poćwiczyć?</label>
+                    {% for option in form.operations %}
+                        {{option}}
+                    {% endfor %}
+                    {% for option in input.operations %}
+                        {{option}}
+                    {% endfor %}<br>
+                    <span style="color:red">{{error}}</span><br>
+                    {% if buttons.1 %}
+                        <button type="submit" name="start" class="btn btn-success">Start</button><br><br>
+                    {% endif %}
+                </article>
+                <article>
+                    {% for o in output %}
+                    {% if o.check %}
+                        {{o.equation}}{{o.result}}
+                        <i class="bi bi-check2"></i>
+                    {% else %}
+                        {{o.equation}} <input type="number" min="0" max="2500" name="answer">
+                    {% endif %}<br>
+                    {% endfor %}<br>
+                    {{score}}<br>
+                    {% if buttons.2 %}
+                        {% if buttons.0 %}
+                            <button type="submit" name="finish" class="btn btn-success">Sprawdź</button>
+                        {% endif %}
+                        <button type="submit" name="reset" class="btn btn-outline-danger">Reset</button>
+                    {% endif %}
+                </article>
+            </form>
+        </section>
+    </main>
+
+       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+               integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+       </script>
+
+</body>
+</html>
