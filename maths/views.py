@@ -44,5 +44,6 @@ def index(request):
         context = {'form': MathsForm(),
                    'buttons': [True, True, False]}
         return render(request, 'index.html', context)
-    context = {'form': form}
+    context = {'form': form,
+               'buttons': [True, True, False]}
     return render(request, 'index.html', context)
