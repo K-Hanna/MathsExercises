@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'maths'
 ]
 
+ALLOWED_HOSTS = ['HannaK.pythonanywhere.com']
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
