@@ -10,6 +10,10 @@ def reDrawNumber(oldNumber, minValue, maxValue):
         return oldNumber
 
 
+def countingOptions(n):
+    return n * countingOptions(n - 1) if n > 1 else 1
+
+
 def count(a, b, d):
     c = 0
     if d == '+':
@@ -29,7 +33,7 @@ def drawNumbers(data):
         data.maxValue = data.minValue
         data.minValue = temp
     examples = []
-    for i in range(data.amount):
+    while len(examples) < data.amount:
         a = random.randint(data.minValue, data.maxValue)
         b = random.randint(data.minValue, data.maxValue)
         d = random.choice(data.operations)
@@ -42,7 +46,11 @@ def drawNumbers(data):
                 b = reDrawNumber(b, data.minValue, data.maxValue)
             a = a * b
         c = count(a, b, d)
-        examples.append(tuple((str(a) + ' ' + d + ' ' + str(b) + ' = ', c)))
+        if data.amount < countingOptions(data.maxValue - data.minValue) * len(data.operations):
+            if not tuple((str(a) + ' ' + d + ' ' + str(b) + ' = ', c)) in examples:
+                examples.append(tuple((str(a) + ' ' + d + ' ' + str(b) + ' = ', c)))
+        else:
+            examples.append(tuple((str(a) + ' ' + d + ' ' + str(b) + ' = ', c)))
     return examples
 
 
