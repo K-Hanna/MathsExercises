@@ -22,8 +22,14 @@
                     <label class="form-label">1. Ile przykładów chcesz poćwiczyć?</label>
                     {{form.amount}}{{input.amount}}
                     <br>
-                    <label class="form-label">2. Jaki ma być zakres liczb?</label>
-                    Od: {{form.minValue}}{{input.minValue}} do: {{form.maxValue}}{{input.maxValue}}<br>
+                    <label class="form-label">2. Jaki ma być zakres liczb wchodzących w skład działań?</label>
+                    Od: {{form.minValue}}{{input.minValue}} do: {{form.maxValue}}{{input.maxValue}}
+                    {% if buttons.1 %}
+                        <button type="button" class="btn btn-link" data-bs-toggle="tooltip"
+                                title="W przypadku dzielenia dotyczy dzielnika i ilorazu">
+                          <i class="bi bi-question-circle"></i>
+                        </button>
+                    {% endif %}<br>
                     <label class="form-label">3. Co chcesz poćwiczyć?</label>
                     {% for option in form.operations %}
                         {{option}}
@@ -37,14 +43,25 @@
                     {% endif %}
                 </article>
                 <article>
-                    {% for o in output %}
-                    {% if o.check %}
-                        {{o.equation}}{{o.result}}
-                        <i class="bi bi-check2"></i>
-                    {% else %}
-                        {{o.equation}} <input type="number" min="0" max="2500" name="answer">
-                    {% endif %}<br>
-                    {% endfor %}<br>
+                    <table>
+                        {% for o in output %}
+                        <tr>
+                        {% if o.check %}
+                            <td style="text-align: right; width: 100px">
+                                {{o.equation}}</td>
+                            <td style="width: 80px">
+                                &nbsp;{{o.result}}&nbsp;
+                                <span style="color: green"><i class="bi bi-check"></i></span>
+                            </td>
+                        {% else %}
+                            <td style="text-align: right; width: 100px">
+                                {{o.equation}}</td>
+                            <td style="width: 80px">
+                                <input type="number" min="0" max="10000" name="answer"></td>
+                        {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </table>
                     {{score}}<br>
                     {% if buttons.2 %}
                         {% if buttons.0 %}
